@@ -1,2 +1,2 @@
 #!/bin/bash
-chomd --wxr-xr-- --reference=olleh hello
+chomd reference=olleh hello
