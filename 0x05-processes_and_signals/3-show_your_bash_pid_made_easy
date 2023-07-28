@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Script for the PID 'olong with the process'
 
-pgrep bash -1
+pgrep bash -l
