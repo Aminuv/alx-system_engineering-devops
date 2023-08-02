@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# The Script that displays listening sports
+
+netstat -l --program
