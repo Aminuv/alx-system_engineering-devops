@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# The srcriot that displays all active IPv4 IPs on the machine it’s executed
+
+ifconfig | grep -w "inet" | cut -d ' ' -f 10
