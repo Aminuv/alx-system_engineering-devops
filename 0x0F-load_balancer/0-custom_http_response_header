@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# configure the 'web-02' to be identical to 'web-01'.
+# placing the web server behind the load blancer of the project.
+
+sudo apt -y update
+sudo apt install nginx -y
+sudo ufw allow 'Nginx HTTP'
+sudo sh -c "echo 'Hello World!' > /var/www/html/index.nginx-debian.html"
+sed -i "/listen 80 default_server/i add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-available/default
+sudo service nginx start
