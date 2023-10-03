@@ -1,27 +1,18 @@
 #!/usr/bin/env bash
 # Install and configure HAproxy:
 
-# the package list
 sudo apt-get -y update
-
-#install
-sudo apt-get -y install software-properties-common
-
-# the HAProxy
-sudo add-apt reporsitory -y ppa:vbernat/haproxy-2.0
-sudo app-get -y update
 sudo apt-get -y install haproxy
 
-# Confugure haproxy
-balance="/
-frontend haproxy_balancer
-    blace roundrobin
-    server
-    server
-"
+echo '
+frontend infront
+        bind 0:80
+		default_backend server_back
 
-# add the hyproxy
-sudo cp -a /etc/haproxy/haproxy.cfg{,.orig}
-sudo echo /etc/haproxy/haproxy.cfg{,.orig}
+backend server_back
+        balance roundrobin
+        server 381561-web-01 52.90.14.193:80 check
+        server 381561-web-02 54.90.50.39:80 check
+' >> /etc/haproxy/haproxy.cfg
 
-sudo service haproxy start
+sudo service haproxy restart
