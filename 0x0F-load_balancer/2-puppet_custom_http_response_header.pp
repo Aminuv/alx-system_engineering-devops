@@ -1,24 +1,24 @@
 # Creating a custom HTTP head response.
 
-exec {'update':
+exec { 'update':
+  command     => 'sudo apt-get -y update',
   provider => shell,
-  command  => 'sudo apt-get -y update',
-  before   => Exec['install Nginx'],
 }
 
-exec {'install Nginx':
+# install ngix
+-> exec { 'install':
+  command => 'sudo apt-get -y install nginx',
   provider => shell,
-  command  => 'sudo apt-get -y install nginx',
-  before   => Exec['add_header'],
 }
 
-exec {'add_header':
-  provider     => shell,
-  command      => 'sudo sed -i "/listen 80 default_server;/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default',
-  before       => Exec['restart Nginx'],
+#add the custun http header
+-> exec { 'replace':
+  command => 'sudo sed -i "/listen 80 default_server;/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default',
+  provider => shell,
 }
 
-exec { 'restart Nginx':
+# Restart the nginx services
+-> exec { 'restart':
+  command => 'sudo service nginx restart',
   provider => shell,
-  command  => 'sudo service nginx restart'.
 }
