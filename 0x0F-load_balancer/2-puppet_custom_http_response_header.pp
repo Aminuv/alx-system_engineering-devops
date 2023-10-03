@@ -1,7 +1,7 @@
 # Creating a custom HTTP head response.
 
 exec {'update':
-  provider => sell,
+  provider => shell,
   command  => 'sudo apt-get -y update',
   before   => Exec['instal Nginx'],
 }
