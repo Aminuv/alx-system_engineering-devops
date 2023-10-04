@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 #  The confuguration of a sever to  listen on 'port 80'.
-ed -i "s/8080/80/g" /etc/nginx/sites-enabled/default
+sed -i "s/8080/80/g" /etc/nginx/sites-enabled/default
 service nginx restart
