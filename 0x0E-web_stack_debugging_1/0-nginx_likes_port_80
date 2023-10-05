@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #  The confuguration of a sever to  listen on 'port 80'.
-
-rm /etc/nginx/sites-enabled/default
-ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-service nginx restart
+sudo sed -i "s/ipv6only=on//" /etc/nginx/sites-available/default
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo service nginx restart
