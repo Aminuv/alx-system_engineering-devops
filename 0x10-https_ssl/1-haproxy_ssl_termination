@@ -1,39 +1,21 @@
 global
-    log /dev/log local0
-    log /dev/log local1 notice
-    maxconn 2000
-    user haproxy
-    group haproxy
-    daemon
+    ssl-engine on
+    ssl-ca /etc/letsencrypt/live/holberton.online.com/fullchain.pem
+    ssl-cert /etc/letsencrypt/live/holberton.online.com/cert.pem
+    ssl-key /etc/letsencrypt/live/holberton.online.com/privkey.pem
 
 defaults
-    log     global
-    mode    http
-    option  httplog
-    option  dontlognull
-    retries 3
-    timeout connect 5000
-    timeout client  50000
-    timeout server  50000
-listen salihabrik
-        bind :80
-        mode http
-        balance roundrobin
-        381561-web-01 52.90.14.193:80 check
-        381561-web-02 54.90.50.39:80 check
-frontend http_front
-    bind *:80
     mode http
-    http-request add-header X-Served-BY http
-        default_backend web-servers
-frontend www-https
-    bind *:443 ssl crt /etc/haproxy/certs/www.salihabrik.tech.pem
-    http-request add-header X-Served-BY https
-        default_backend web-servers
-    default_backend http_back
+    option httplog
+    option dontlognull
+    option http-server-close
 
-backend http_back
+frontend www
+    bind *:443
+    mode http
+    default_backend www_backend
+
+backend www_backend
     balance roundrobin
-    381561-web-01 52.90.14.193:80 check
-    381561-web-02 54.90.50.39:80 check
-
+    server web1 52.90.14.193:80
+    server web2 54.90.50.39:80
