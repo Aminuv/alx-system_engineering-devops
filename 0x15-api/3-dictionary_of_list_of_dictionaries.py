@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" 
+"""
      Python script to export data in the 'JSON' format.
 """
 import json
@@ -17,5 +17,5 @@ if __name__ == "__main__":
                 "completed": t.get("completed"),
                 "username": u.get("username")
             } for t in requests.get(url + "todos",
-                params={"userId": u.get("id")}).json()]
+                                    params={"userId": u.get("id")}).json()]
             for u in users}, jsonfile)
