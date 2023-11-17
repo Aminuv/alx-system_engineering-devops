@@ -1,8 +1,6 @@
 [Unit]
 Description=Gunicorn instance to serve the AirBnB Clone v4 application
-After=network.target
-
-
+After=network.targe
 [Service]
 User=ubuntu
 Group=www-data
